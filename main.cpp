@@ -69,9 +69,14 @@ void menu_m()
     bubbles_sorting(table, t);
     stop = clock();
     time_sorting = (double)(stop-start)/CLOCKS_PER_SEC;
-    cout << "Bubbles time sorting: " << time_sorting << " s."<< endl;
+    cout << "Bubbles sorting time: " << time_sorting << " s."<< endl;
 
-
+    //Quick Sorting
+    start = clock();
+    Quick_Sort(table, 0, t-1);
+    stop = clock();
+    time_sorting = (double)(stop-start)/CLOCKS_PER_SEC;
+    cout << "Quick sorting time: " << time_sorting << " s."<< endl;
 
 
 
@@ -139,32 +144,32 @@ void Bubbles_Sort(int *tab, int n)
     }
 }
 
-void Quick_Sort(int *tablica, int lewy, int prawy)
+void Quick_Sort(int *table, int left, int right)
 {
-    int v=tablica[(lewy+prawy)/2];
+    int v=table[(left+right)/2];
     int i,j,x;
-    i=lewy;
-    j=prawy;
+    i=left;
+    j=right;
     do
     {
-        while (tablica[i]<v)
+        while (table[i]<v)
             i++;
-        while (tablica[j]>v)
+        while (table[j]>v)
             j--;
         if (i<=j)
         {
-            x=tablica[i];
-            tablica[i]=tablica[j];
-            tablica[j]=x;
+            x=table[i];
+            table[i]=table[j];
+            table[j]=x;
             i++;
             j--;
         }
     }
     while (i<=j);
-    if (j>lewy)
-        quicksort(tablica,lewy, j);
-    if (i<prawy)
-        quicksort(tablica, i, prawy);
+    if (j>left)
+        quicksort(table,left, j);
+    if (i<right)
+        quicksort(table, i, right);
 }
 
 void Merg_Sort(int *tab,)
