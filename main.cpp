@@ -8,6 +8,7 @@ void menu_m();
 void menu_a();
 void Bubbles_Sort(int *tab, int n);
 void Quick_Sort(int *tablica, int lewy, int prawy);
+void Merg_Sort(int *tab, int left, int right);
 //void bubbles_time_sorting();
 
 int main()
@@ -31,8 +32,6 @@ int main()
     else
         cout << "Incorrectly entered character" << endl;
 
-
-    delete [] table;
 
     return 0;
 }
@@ -78,7 +77,8 @@ void menu_m()
     time_sorting = (double)(stop-start)/CLOCKS_PER_SEC;
     cout << "Quick sorting time: " << time_sorting << " s."<< endl;
 
-
+    delete [] table;
+    delete [] table2;
 
 }
 
@@ -121,9 +121,15 @@ void menu_a()
     time_sorting = (double)(stop-start)/CLOCKS_PER_SEC;
     cout << "Bubbles time sorting: " << time_sorting << " s."<< endl;
 
+    //Quick Sorting
+    start = clock();
+    Quick_Sort(table, 0, t-1);
+    stop = clock();
+    time_sorting = (double)(stop-start)/CLOCKS_PER_SEC;
+    cout << "Quick sorting time: " << time_sorting << " s."<< endl;
 
-
-
+    delete [] table;
+    delete [] table2;
 
 }
 
@@ -172,4 +178,7 @@ void Quick_Sort(int *table, int left, int right)
         quicksort(table, i, right);
 }
 
-void Merg_Sort(int *tab,)
+void Merg_Sort(int *tab, int left, int right)
+{
+
+}
