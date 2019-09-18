@@ -7,8 +7,8 @@ using namespace std;
 void menu_m();
 void menu_a();
 void Bubbles_Sort(int *tab, int n);
-void Quick_Sort(int *tablica, int lewy, int prawy);
-void Merg_Sort(int *tab, int left, int right);
+void Quick_Sort(int *table, int left, int right);
+void MergeSort(int *a, int low, int high);
 //void bubbles_time_sorting();
 
 int main()
@@ -47,6 +47,9 @@ void menu_m()
     int *table2;
     table2 = new int [t];
 
+    int *table3;
+    table3 = new int [t];
+
     //loops for creating table
     cout << "Enter the number of numbers to sort:" << endl;
     cin >> t;
@@ -72,13 +75,21 @@ void menu_m()
 
     //Quick Sorting
     start = clock();
-    Quick_Sort(table, 0, t-1);
+    Quick_Sort(table2, 0, t-1);
     stop = clock();
     time_sorting = (double)(stop-start)/CLOCKS_PER_SEC;
     cout << "Quick sorting time: " << time_sorting << " s."<< endl;
 
+    //Merg Sorting
+    start = clock();
+    Merge_Sort(table3, t/2);
+    stop = clock();
+    time_sorting = (double)(stop-start)/CLOCKS_PER_SEC;
+    cout << "Merg sorting time: " << time_sorting << " s."<< endl;
+
     delete [] table;
     delete [] table2;
+    delete [] table3;
 
 }
 
@@ -87,8 +98,15 @@ void menu_a()
     clock_t start, stop;
     double time_sorting;
     int HowManyNumbers;
+
     int *table;
     table = new int [t];
+
+    int *table2;
+    table2 = new int [t];
+
+    int *table3;
+    table3 = new int [t];
 
     //loops for creating table
     cout << "How many numbers ?? (between 1 and 100000)" << endl;
@@ -112,6 +130,9 @@ void menu_a()
         cout << "Too much or too less.... " << endl;
         return 0;
     }
+
+
+
     //sorting
 
     //bubbles sorting
@@ -123,15 +144,23 @@ void menu_a()
 
     //Quick Sorting
     start = clock();
-    Quick_Sort(table, 0, t-1);
+    Quick_Sort(table2, 0, t-1);
     stop = clock();
     time_sorting = (double)(stop-start)/CLOCKS_PER_SEC;
     cout << "Quick sorting time: " << time_sorting << " s."<< endl;
 
+    //Merg Sorting
+    start = clock();
+    Merge_Sort(table3, t/2);
+    stop = clock();
+    time_sorting = (double)(stop-start)/CLOCKS_PER_SEC;
+    cout << "Merg sorting time: " << time_sorting << " s."<< endl;
+
     delete [] table;
     delete [] table2;
+    delete [] table3;
 
-}
+}void MergeSort(int *a, int low, int high)
 
 void Bubbles_Sort(int *tab, int n)
 {
@@ -178,7 +207,68 @@ void Quick_Sort(int *table, int left, int right)
         quicksort(table, i, right);
 }
 
-void Merg_Sort(int *tab, int left, int right)
+void Merge(int *a, int low, int high, int mid)
 {
+	// We have low to mid and mid+1 to high already sorted.
+	int i, j, k, temp[high-low+1];
+	i = low;
+	k = 0;
+	j = mid + 1;
 
+	// Merge the two parts into temp[].
+	while (i <= mid && j <= high)
+	{
+		if (a[i] < a[j])
+		{
+			temp[k] = a[i];
+			k++;
+			i++;
+		}
+		else
+		{
+			temp[k] = a[j];
+			k++;
+			j++;
+		}
+	}
+
+	// Insert all the remaining values from i to mid into temp[].
+	while (i <= mid)
+	{
+		temp[k] = a[i];
+		k++;
+		i++;
+	}
+
+	// Insert all the remaining values from j to high into temp[].
+	while (j <= high)
+	{
+		temp[k] = a[j];
+		k++;
+		j++;
+	}
+
+
+	// Assign sorted data stored in temp[] to a[].
+	for (i = low; i <= high; i++)
+	{
+		a[i] = temp[i-low];
+	}
 }
+
+// A function to split array into two parts.
+void Merge_Sort(int *a, int low, int high)
+{
+	int mid;
+	if (low < high)
+	{
+		mid=(low+high)/2;
+		// Split the data into two half.
+		Merge_Sort(a, low, mid);
+		Merge_Sort(a, mid+1, high);
+
+		// Merge them to get sorted output.
+		Merge(a, low, high, mid);
+	}
+}
+
