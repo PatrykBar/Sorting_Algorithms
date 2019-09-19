@@ -8,7 +8,7 @@ void menu_m();
 void menu_a();
 void Bubbles_Sort(int *tab, int n);
 void Quick_Sort(int *table, int left, int right);
-void MergeSort(int *a, int low, int high);
+void Merge_Sort(int *a, int low, int high);
 //void bubbles_time_sorting();
 
 int main()
@@ -68,7 +68,7 @@ void menu_m()
 
     //bubbles sorting
     start = clock();
-    bubbles_sorting(table, t);
+    Bubbles_Sort(table, t);
     stop = clock();
     time_sorting = (double)(stop-start)/CLOCKS_PER_SEC;
     cout << "Bubbles sorting time: " << time_sorting << " s."<< endl;
@@ -82,7 +82,7 @@ void menu_m()
 
     //Merg Sorting
     start = clock();
-    Merge_Sort(table3, t/2);
+    Merge_Sort(table3, 0, t-1);
     stop = clock();
     time_sorting = (double)(stop-start)/CLOCKS_PER_SEC;
     cout << "Merg sorting time: " << time_sorting << " s."<< endl;
@@ -98,6 +98,7 @@ void menu_a()
     clock_t start, stop;
     double time_sorting;
     int HowManyNumbers;
+    int t=0;
 
     int *table;
     table = new int [t];
@@ -128,7 +129,6 @@ void menu_a()
     else
     {
         cout << "Too much or too less.... " << endl;
-        return 0;
     }
 
 
@@ -151,7 +151,7 @@ void menu_a()
 
     //Merg Sorting
     start = clock();
-    Merge_Sort(table3, t/2);
+    Merge_Sort(table3, 0, t-1);
     stop = clock();
     time_sorting = (double)(stop-start)/CLOCKS_PER_SEC;
     cout << "Merg sorting time: " << time_sorting << " s."<< endl;
@@ -160,7 +160,7 @@ void menu_a()
     delete [] table2;
     delete [] table3;
 
-}void MergeSort(int *a, int low, int high)
+}
 
 void Bubbles_Sort(int *tab, int n)
 {
@@ -202,9 +202,9 @@ void Quick_Sort(int *table, int left, int right)
     }
     while (i<=j);
     if (j>left)
-        quicksort(table,left, j);
+        Quick_Sort(table,left, j);
     if (i<right)
-        quicksort(table, i, right);
+        Quick_Sort(table, i, right);
 }
 
 void Merge(int *a, int low, int high, int mid)
