@@ -1,5 +1,3 @@
-
-
 class sortingAlghoritms
 {
 private:

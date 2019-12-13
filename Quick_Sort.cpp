@@ -2,7 +2,7 @@
 
 void Quick_Sort(int *tab, int left, int right)
 {
-    int v=table[(left+right)/2];
+    int v=tab[(left+right)/2];
     int i,j,x;
     i=left;
     j=right;
@@ -22,7 +22,7 @@ void Quick_Sort(int *tab, int left, int right)
     }
     while (i<=j);
     if (j>left)
-        Quick_Sort(table,left, j);
+        Quick_Sort(tab,left, j);
     if (i<right)
-        Quick_Sort(table, i, right);
+        Quick_Sort(tab, i, right);
 }
